@@ -17,4 +17,4 @@ const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
-axios.interceptors.request.use(authRequestInterceptor);
+instance.interceptors.request.use(authRequestInterceptor);
