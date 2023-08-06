@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
@@ -13,12 +14,15 @@ const SignIn = () => {
   const isEmailValid = isValidEmail(email);
   const isPasswordValid = isValidPassword(password);
 
+  const navigate = useNavigate();
+
   const onSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const data = await singIn(email, password);
       const token = data.access_token;
       localStorage.setItem('token', token);
+      navigate('/todo');
     } catch (error) {
       console.error(error);
     }

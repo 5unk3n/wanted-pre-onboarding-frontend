@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
@@ -13,10 +14,13 @@ const SignUp = () => {
   const isEmailValid = isValidEmail(email);
   const isPasswordValid = isValidPassword(password);
 
+  const navigate = useNavigate();
+
   const onSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await signUp(email, password);
+      navigate('/signin');
     } catch (error) {
       console.error(error);
     }
