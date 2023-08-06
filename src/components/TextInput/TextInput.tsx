@@ -12,14 +12,16 @@ import * as S from './TextInput.styled';
 
 interface TextInputProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactElement;
-  label?: string;
+  label: string;
   bottomText?: string;
+  $isLabelHidden?: boolean;
 }
 
 const TextInput = ({
   label,
   bottomText,
   children,
+  $isLabelHidden = false,
   ...props
 }: TextInputProps) => {
   const child = Children.only(children);
@@ -28,7 +30,9 @@ const TextInput = ({
 
   return (
     <S.InputWrapper {...props}>
-      <S.Label htmlFor={id}>{label}</S.Label>
+      <S.Label htmlFor={id} $isLabelHidden={$isLabelHidden}>
+        {label}
+      </S.Label>
       {cloneElement(child, { id, ...child.props })}
       {bottomText && (
         <S.BottomText $isError={isError}>{bottomText}</S.BottomText>
