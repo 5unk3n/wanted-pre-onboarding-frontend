@@ -7,10 +7,12 @@ import { createTodo, getTodos, updateTodo, deleteTodo } from 'apis/todo';
 import { TodoType } from 'types';
 
 import * as S from './Todo.styled';
+import { useNavigate } from 'react-router-dom';
 
 const Todo = () => {
   const [todos, setTodos] = React.useState<TodoType[]>([]);
   const [newTodo, setNewTodo] = React.useState('');
+  const navigate = useNavigate();
 
   const fetchTodos = async () => {
     try {
@@ -58,13 +60,21 @@ const Todo = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   useEffect(() => {
     fetchTodos();
   }, []);
 
   return (
     <S.Wrapper>
-      <h2>TODO</h2>
+      <S.Header>
+        <h2>TODO</h2>
+        <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
+      </S.Header>
       <S.AddTodoForm onSubmit={handleCreateTodo}>
         <TextInput label='New Todo' $isLabelHidden>
           <TextInput.TextField

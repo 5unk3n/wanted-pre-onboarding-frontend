@@ -4,6 +4,18 @@ export const Wrapper = styled.div`
   padding: 10px 20px;
 `;
 
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const LogoutButton = styled.button`
+  border: none;
+  background: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
 export const AddTodoForm = styled.form`
   display: flex;
   align-items: center;
