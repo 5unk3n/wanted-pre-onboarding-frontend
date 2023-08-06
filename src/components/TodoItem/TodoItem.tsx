@@ -13,23 +13,21 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
-  const [prevTodo, setPrevTodo] = useState(todo);
   const [isEditting, setIsEditting] = useState(false);
-  const [edittedTodo, setEdittedTodo] = useState(prevTodo.todo);
+  const [edittedTodo, setEdittedTodo] = useState(todo.todo);
 
   const handleCheckClick = async (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
-    await onEditTodo(prevTodo.id, prevTodo.todo, !prevTodo.isCompleted);
-    setPrevTodo((prev) => ({ ...prev, isCompleted: !prev.isCompleted }));
+    await onEditTodo(todo.id, todo.todo, !todo.isCompleted);
   };
 
   return (
     <S.TodoDiv>
       <label htmlFor='checkbox'>
         <input
-          id={`checkbox-${prevTodo.id}`}
+          id={`checkbox-${todo.id}`}
           type='checkbox'
-          checked={prevTodo.isCompleted}
+          checked={todo.isCompleted}
           onClick={handleCheckClick}
           readOnly
         />
@@ -38,7 +36,7 @@ const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
         <>
           <TextInput label='Edit Todo' $isLabelHidden>
             <TextInput.TextField
-              id={`input-${prevTodo.id}`}
+              id={`input-${todo.id}`}
               value={edittedTodo}
               onChange={(e) => setEdittedTodo(e.target.value)}
               data-testid='modify-input'
@@ -48,7 +46,7 @@ const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
             $size='sm'
             onClick={() => {
               setIsEditting(!isEditting);
-              onEditTodo(prevTodo.id, edittedTodo, prevTodo.isCompleted);
+              onEditTodo(todo.id, edittedTodo, todo.isCompleted);
             }}
             data-testid='submit-button'
           >
@@ -58,7 +56,7 @@ const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
             $size='sm'
             onClick={() => {
               setIsEditting(!isEditting);
-              setEdittedTodo(prevTodo.todo);
+              setEdittedTodo(todo.todo);
             }}
             data-testid='cancel-button'
           >
@@ -77,7 +75,7 @@ const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
           </Button>
           <Button
             $size='sm'
-            onClick={() => onDelteTodo(prevTodo.id)}
+            onClick={() => onDelteTodo(todo.id)}
             data-testid='delete-button'
           >
             삭제
