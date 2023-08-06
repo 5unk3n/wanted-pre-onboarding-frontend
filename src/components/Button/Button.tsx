@@ -2,14 +2,20 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 import * as S from './Button.styled';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  type?: 'button' | 'submit' | 'reset';
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
+  $size?: 'sm' | 'lg';
 }
 
-const Button = ({ type = 'button', children, ...props }: ButtonProps) => {
+const Button = ({
+  type = 'button',
+  $size = 'lg',
+  children,
+  ...props
+}: ButtonProps) => {
   return (
-    <S.Button type={type} {...props}>
+    <S.Button type={type} $size={$size} {...props}>
       {children}
     </S.Button>
   );
