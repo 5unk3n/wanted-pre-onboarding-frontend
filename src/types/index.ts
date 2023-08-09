@@ -4,3 +4,9 @@ export interface TodoType {
   isCompleted: boolean;
   userId: number;
 }
+
+export interface ToastProps {
+  message: string;
+  $type: 'error' | 'success';
+  duration?: number;
+}
