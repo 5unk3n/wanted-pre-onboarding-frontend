@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
+import Link from 'components/Link/Link';
 import { isValidEmail, isValidPassword } from 'utils/validation';
 import { signUp } from 'apis/auth';
 import { ToastContext } from 'context/ToastContext';
@@ -60,6 +61,7 @@ const SignUp = () => {
         >
           회원가입
         </Button>
+        <Link to='signin'>로그인</Link>
       </S.SignupForm>
     </S.Wrapper>
   );
