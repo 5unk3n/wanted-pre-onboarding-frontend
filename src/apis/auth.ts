@@ -1,7 +1,7 @@
 import { instance } from 'utils/axios';
 
-export const signUp = async (email: string, password: string) => {
-  await instance.post('/auth/signup', { email, password });
+export const signUp = (email: string, password: string) => {
+  return instance.post('/auth/signup', { email, password });
 };
 
 export const singIn = async (

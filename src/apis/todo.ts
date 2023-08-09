@@ -20,6 +20,6 @@ export const updateTodo = async (
   return data;
 };
 
-export const deleteTodo = async (id: number): Promise<void> => {
-  await instance.delete(`/todos/${id}`);
+export const deleteTodo = (id: number) => {
+  return instance.delete(`/todos/${id}`);
 };

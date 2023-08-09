@@ -1,25 +1,29 @@
-import React, { FormEvent, useEffect } from 'react';
+import React, { FormEvent, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
 import TodoItem from 'components/TodoItem/TodoItem';
 import { createTodo, getTodos, updateTodo, deleteTodo } from 'apis/todo';
 import { TodoType } from 'types';
+import { getErrorMessage } from 'utils/axios';
+import { ToastContext } from 'context/ToastContext';
 
 import * as S from './Todo.styled';
-import { useNavigate } from 'react-router-dom';
 
 const Todo = () => {
   const [todos, setTodos] = React.useState<TodoType[]>([]);
   const [newTodo, setNewTodo] = React.useState('');
   const navigate = useNavigate();
+  const { addToast } = useContext(ToastContext);
 
   const fetchTodos = async () => {
     try {
       const todoDatas = await getTodos();
       setTodos(todoDatas);
     } catch (error) {
-      console.error(error);
+      const errorMessage = getErrorMessage(error);
+      addToast(errorMessage);
     }
   };
 
@@ -30,7 +34,8 @@ const Todo = () => {
       setTodos((prev) => [...prev, createdTodo]);
       setNewTodo('');
     } catch (error) {
-      console.error(error);
+      const errorMessage = getErrorMessage(error);
+      addToast(errorMessage);
     }
   };
 
@@ -47,7 +52,8 @@ const Todo = () => {
         )
       );
     } catch (error) {
-      console.error(error);
+      const errorMessage = getErrorMessage(error);
+      addToast(errorMessage);
     }
   };
 
@@ -56,7 +62,8 @@ const Todo = () => {
       await deleteTodo(id);
       setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
     } catch (error) {
-      console.error(error);
+      const errorMessage = getErrorMessage(error);
+      addToast(errorMessage);
     }
   };
 

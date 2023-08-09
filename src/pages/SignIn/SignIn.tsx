@@ -1,10 +1,12 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
 import { isValidEmail, isValidPassword } from 'utils/validation';
 import { singIn } from 'apis/auth';
+import { ToastContext } from 'context/ToastContext';
+import { getErrorMessage } from 'utils/axios';
 
 import * as S from './SignIn.styled';
 
@@ -15,6 +17,7 @@ const SignIn = () => {
   const isPasswordValid = isValidPassword(password);
 
   const navigate = useNavigate();
+  const { addToast } = useContext(ToastContext);
 
   const onSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +27,8 @@ const SignIn = () => {
       localStorage.setItem('token', token);
       navigate('/todo');
     } catch (error) {
-      console.error(error);
+      const errorMessage = getErrorMessage(error);
+      addToast(errorMessage);
     }
   };
 

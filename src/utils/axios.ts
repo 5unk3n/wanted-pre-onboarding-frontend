@@ -18,3 +18,22 @@ const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
 };
 
 instance.interceptors.request.use(authRequestInterceptor);
+
+export interface ErrorResponse {
+  error: string;
+  message: string;
+  statusCode: number;
+}
+
+export const getErrorMessage = (error: unknown) => {
+  if (axios.isAxiosError<ErrorResponse>(error)) {
+    if (error.response) {
+      return error.response.data.message;
+    } else if (error.request) {
+      return error.message;
+    } else {
+      return error.message;
+    }
+  }
+  return '알 수 없는 오류';
+};
