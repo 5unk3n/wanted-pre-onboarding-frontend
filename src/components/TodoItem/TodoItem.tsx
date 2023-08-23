@@ -13,8 +13,8 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
-  const [isEditting, setIsEditting] = useState(false);
-  const [edittedTodo, setEdittedTodo] = useState(todo.todo);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTodo, setEditedTodo] = useState(todo.todo);
 
   const handleCheckClick = async (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -32,21 +32,21 @@ const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
           readOnly
         />
       </label>
-      {isEditting ? (
+      {isEditing ? (
         <>
           <TextInput label='Edit Todo' $isLabelHidden>
             <TextInput.TextField
               id={`input-${todo.id}`}
-              value={edittedTodo}
-              onChange={(e) => setEdittedTodo(e.target.value)}
+              value={editedTodo}
+              onChange={(e) => setEditedTodo(e.target.value)}
               data-testid='modify-input'
             />
           </TextInput>
           <Button
             $size='sm'
             onClick={() => {
-              setIsEditting(!isEditting);
-              onEditTodo(todo.id, edittedTodo, todo.isCompleted);
+              setIsEditing(!isEditing);
+              onEditTodo(todo.id, editedTodo, todo.isCompleted);
             }}
             data-testid='submit-button'
           >
@@ -55,8 +55,8 @@ const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
           <Button
             $size='sm'
             onClick={() => {
-              setIsEditting(!isEditting);
-              setEdittedTodo(todo.todo);
+              setIsEditing(!isEditing);
+              setEditedTodo(todo.todo);
             }}
             data-testid='cancel-button'
           >
@@ -65,10 +65,10 @@ const TodoItem = ({ todo, onEditTodo, onDelteTodo }: TodoItemProps) => {
         </>
       ) : (
         <>
-          <span>{edittedTodo}</span>
+          <span>{editedTodo}</span>
           <Button
             $size='sm'
-            onClick={() => setIsEditting(!isEditting)}
+            onClick={() => setIsEditing(!isEditing)}
             data-testid='modify-button'
           >
             수정
